@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct BottomTextView: View {
+    let str: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Spacer()
+            Text(str)
+                .font(.body)
+                .bold()
+                .padding()
+            Spacer()
+        }.background(GameColor.accent)
     }
 }
 
 #Preview {
-    BottomTextView()
+    BottomTextView(str: "Test")
 }
