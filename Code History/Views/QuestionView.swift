@@ -17,28 +17,29 @@ struct QuestionView: View {
                 .font(.largeTitle)
                 .bold()
                 .multilineTextAlignment(.leading)
+                .padding(.horizontal, 4)
             Spacer()
             HStack {
-                ForEach(0..<question.possibleAnswers.count) { answerIndex in
-                    Button(action: {
-                        print("Tapped on option with the text: \(question.possibleAnswers[answerIndex])")
-                        viewModel.makeGuess(atIndex: answerIndex)
-                    }) {
-                        ChoiceTextView(choiceText: question.possibleAnswers[answerIndex])
+                ForEach(0..<question.possibleAnswers.count) { index in
+                    Button {
+                        viewModel.makeGuess(atIndex: index)
+                        print("Tapped on option with the text: \(question.possibleAnswers[index])")
+                    } label: {
+                        ChoiceTextView(choiceText: question.possibleAnswers[index])
+                            .background(viewModel.color(forOptionIndex: index))
                     }
+                    .disabled(viewModel.guessWasMade)
                 }
             }
             if viewModel.guessWasMade {
                 Button(action: { viewModel.displayNextScreen() }) {
                     BottomTextView(str: "Next")
                 }
-                
             }
-            
         }
     }
 }
-//
-//#Preview {
-//    QuestionView(question: "Next")
-//}
+
+#Preview {
+    QuestionView(question: Game().currentQuestion).environmentObject(GameViewModel())
+}

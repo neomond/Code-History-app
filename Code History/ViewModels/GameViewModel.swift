@@ -7,23 +7,21 @@
 
 import SwiftUI
 
-// 1
 class GameViewModel: ObservableObject {
-    // MARK: - Published properties
-    // 2
-    @Published private var game = Game()
     
+    // MARK: - Published properties
+    
+    @Published private var game = Game()
+
     // MARK: - Internal properties
-    // 3
+    
     var currentQuestion: Question {
         game.currentQuestion
     }
-    
-    // 4
+            
     var questionProgressText: String {
         "\(game.currentQuestionIndex + 1) / \(game.numberOfQuestions)"
     }
-    
     
     var guessWasMade: Bool {
         if let _ = game.guesses[currentQuestion] {
@@ -34,11 +32,11 @@ class GameViewModel: ObservableObject {
     }
     
     // MARK: - Internal Methods
-    // 2
+    
     func makeGuess(atIndex index: Int) {
         game.makeGuessForCurrentQuestion(atIndex: index)
     }
-    // 3
+    
     func displayNextScreen() {
         game.updateGameStatus()
     }
